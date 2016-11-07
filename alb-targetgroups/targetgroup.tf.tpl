@@ -5,14 +5,14 @@ resource "aws_alb_target_group" "AWS_EC2_ALB_TG" {
   vpc_id    = "${data.terraform_remote_state.aws_vpc.MasterVPC-ID}"
 }
 
-output "TG-AWS_EC2_ALB_TG-ID" {
+output "tgrp-AWS_EC2_ALB_TG-id" {
   value = "${aws_alb_target_group.AWS_EC2_ALB_TG-.id}"
 }
 
-output "TG-AWS_EC2_ALB_TG-ARN" {
+output "tgrp-AWS_EC2_ALB_TG-arn" {
   value = "${aws_alb_target_group.AWS_EC2_ALB_TG.arn}"
 }
 
-output "TG-AWS_EC2_ALB_TG-ARN_Suffix" {
+output "tgrp-AWS_EC2_ALB_TG-arn_suffix" {
   value = "${aws_alb_target_group.AWS_EC2_ALB_TG.arn_suffix}"
 }
