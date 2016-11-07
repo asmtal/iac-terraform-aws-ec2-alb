@@ -8,10 +8,10 @@ resource "aws_alb_listener" "AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT" {
     target_group_arn  = "${aws_alb_target_group.AWS_EC2_ALB_TG.arn}"
   }
 }
-  output "AWS_EC2_ALB-AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT-id" {
+  output "LST-AWS_EC2_ALB-AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT-id" {
     value = "${aws_alb_listener.AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT.id}"
   }
 
-  output "AWS_EC2_ALB-AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT-arn" {
+  output "LST-AWS_EC2_ALB-AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT-arn" {
     value = "${aws_alb_listener.AWS_EC2_ALB_LST_PRTCL_AWS_EC2_ALB_LST_PRT.arn}"
   }
