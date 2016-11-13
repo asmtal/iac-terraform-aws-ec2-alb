@@ -1,39 +1,59 @@
-resource "aws_alb_target_group" "ecs_cluster-lep_stack" {
-  name = "ecs-cluster-lep-stack"
-  port = 80
-  protocol = "HTTP"
-  vpc_id  = "${data.terraform_remote_state.aws_vpc.MasterVPC-ID}"
+resource "aws_alb_target_group" "ecs_cluster_nginx_http" {
+  name      = "ecs_cluster_nginx_http"
+  port      = 80
+  protocol  = "HTTP"
+  deregistration_delay = 300
+
+  vpc_id  = "${data.terraform_remote_state.aws_vpc.ecs_cluster_vpc_id}"
+
+  health_check {
+    port                = "traffic-port"
+    protocol            = "HTTP"
+
+    matcher             = 200
+    target              = "/index.php"
+
+    timeout             = 2
+    interval            = 5
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+  }
+
+  tags {
+    Name = "ecs-cluster-external-alb-target-group-nginx-http"
+  }
 }
 
-  output "TargetGroup-ECS_Cluster-LEP_Stack-ID" {
-    value = "${aws_alb_target_group.ecs_cluster-lep_stack.id}"
+output "alb_target_group_ecs_cluster_nginx_http_id"         {value = "${aws_alb_target_group.ecs_cluster_nginx_http.id}"}
+output "alb_target_group_ecs_cluster_nginx_http_arn"        {value = "${aws_alb_target_group.ecs_cluster_nginx_http.arn}"}
+output "alb_target_group_ecs_cluster_nginx_http_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_nginx_http.arn_suffix}"}
+
+resource "aws_alb_target_group" "ecs_cluster_nginx_https" {
+  name      = "ecs_cluster_nginx_https"
+  port      = 443
+  protocol  = "HTTPS"
+  deregistration_delay = 300
+
+  vpc_id  = "${data.terraform_remote_state.aws_vpc.ecs_cluster_vpc_id}"
+
+  health_check {
+    port                = "traffic-port"
+    protocol            = "HTTPS"
+
+    matcher             = 200
+    target              = "/index.php"
+
+    timeout             = 2
+    interval            = 5
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
   }
 
-  output "TargetGroup-ECS_Cluster-LEP_Stack-ARN" {
-    value = "${aws_alb_target_group.ecs_cluster-lep_stack.arn}"
+  tags {
+    Name = "ecs-cluster-external-alb-target-group-nginx-https"
   }
-
-  output "TargetGroup-ECS_Cluster-LEP_Stack-ARN_Suffix" {
-    value = "${aws_alb_target_group.ecs_cluster-lep_stack.arn_suffix}"
-  }
-
-/*
-resource "aws_alb_target_group" "ecs-cluster-phpfpm" {
-  name = "ecs-cluster-phpfpm"
-  port = 9000
-  protocol = "HTTP"
-  vpc_id  = "${data.terraform_remote_state.aws_vpc.MasterVPC-ID}"
 }
 
-  output "TargetGroup-ECS_Cluster-PHPFPM-ID" {
-    value = "${aws_alb_target_group.ecs-cluster-phpfpm.id}"
-  }
-
-  output "TargetGroup-ECS_Cluster-PHPFPM_ARN" {
-    value = "${aws_alb_target_group.ecs-cluster-phpfpm.arn}"
-  }
-
-  output "TargetGroup-ECS_Cluster-PHPFPM_ARN_Suffix" {
-    value = "${aws_alb_target_group.ecs-cluster-phpfpm.arn_suffix}"
-  }
-*/
+output "alb_target_group_ecs_cluster_nginx_https_id"         {value = "${aws_alb_target_group.ecs_cluster_nginx_https.id}"}
+output "alb_target_group_ecs_cluster_nginx_https_arn"        {value = "${aws_alb_target_group.ecs_cluster_nginx_https.arn}"}
+output "alb_target_group_ecs_cluster_nginx_https_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_nginx_https.arn_suffix}"}

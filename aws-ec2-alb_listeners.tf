@@ -1,37 +1,27 @@
-resource "aws_alb_listener" "http_80_public" {
+resource "aws_alb_listener" "ecs_cluster_nginx_http" {
   port      = "80"
   protocol  = "HTTP"
-  load_balancer_arn = "${aws_alb.external.arn}"
+  load_balancer_arn = "${aws_alb.ecs_cluster_external.arn}"
 
   default_action {
     type              = "forward"
-    target_group_arn  = "${aws_alb_target_group.ecs_cluster-lep_stack.arn}"
+    target_group_arn  = "${aws_alb_target_group.ecs_cluster_nginx_http.arn}"
   }
 }
-  output "alb_listener-http_80_public-id" {
-    value = "${aws_alb_listener.http_80_public.id}"
-  }
 
-  output "alb_listener-http_80_public-arn" {
-    value = "${aws_alb_listener.http_80_public.arn}"
-  }
+output "alb_listener_ecs_cluster_nginx_http_id"   {value = "${aws_alb_listener.ecs_cluster_nginx_http.id}"}
+output "alb_listener_ecs_cluster_nginx_http_arn"  {value = "${aws_alb_listener.ecs_cluster_nginx_http.arn}"}
 
-/*
-resource "aws_alb_listener" "phpfpm_9000_private" {
-  port      = "9000"
-  protocol  = "HTTP"
-  load_balancer_arn = "${aws_alb.internal.arn}"
+resource "aws_alb_listener" "ecs_cluster_nginx_https" {
+  port      = "443"
+  protocol  = "HTTPS"
+  load_balancer_arn = "${aws_alb.ecs_cluster_external.arn}"
 
   default_action {
     type              = "forward"
-    target_group_arn  = "${aws_alb_target_group.ecs-cluster-phpfpm.arn}"
+    target_group_arn  = "${aws_alb_target_group.ecs_cluster_nginx_https.arn}"
   }
 }
-  output "alb_listener-phpfpm_9000_private-id" {
-    value = "${aws_alb_listener.phpfpm_9000_private.id}"
-  }
 
-  output "alb_listener-phpfpm_9000_private-arn" {
-    value = "${aws_alb_listener.phpfpm_9000_private.arn}"
-  }
-*/
+output "alb_listener_ecs_cluster_nginx_https_id"   {value = "${aws_alb_listener.ecs_cluster_nginx_https.id}"}
+output "alb_listener_ecs_cluster_nginx_https_arn"  {value = "${aws_alb_listener.ecs_cluster_nginx_https.arn}"}
