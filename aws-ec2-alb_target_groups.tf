@@ -1,5 +1,5 @@
-resource "aws_alb_target_group" "ecs_cluster_nginx_http" {
-  name      = "ecs_cluster_nginx_http"
+resource "aws_alb_target_group" "ecs_cluster_external_alb_http_80" {
+  name      = "ecs-cluster-external-alb-http-80"
   port      = 80
   protocol  = "HTTP"
   deregistration_delay = 300
@@ -20,16 +20,17 @@ resource "aws_alb_target_group" "ecs_cluster_nginx_http" {
   }
 
   tags {
-    Name = "ecs-cluster-external-alb-target-group-nginx-http"
+    Name = "ecs-cluster-external-alb-http-80"
   }
 }
 
-output "alb_target_group_ecs_cluster_nginx_http_id"         {value = "${aws_alb_target_group.ecs_cluster_nginx_http.id}"}
-output "alb_target_group_ecs_cluster_nginx_http_arn"        {value = "${aws_alb_target_group.ecs_cluster_nginx_http.arn}"}
-output "alb_target_group_ecs_cluster_nginx_http_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_nginx_http.arn_suffix}"}
+output "alb_ecs_cluster_external_target_group_http_80_id"         {value = "${aws_alb_target_group.ecs_cluster_external_alb_http_80.id}"}
+output "alb_ecs_cluster_external_target_group_http_80_arn"        {value = "${aws_alb_target_group.ecs_cluster_external_alb_http_80.arn}"}
+output "alb_ecs_cluster_external_target_group_http_80_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_external_alb_http_80.arn_suffix}"}
 
-resource "aws_alb_target_group" "ecs_cluster_nginx_https" {
-  name      = "ecs_cluster_nginx_https"
+
+resource "aws_alb_target_group" "ecs_cluster_external_alb_https_443" {
+  name      = "ecs-cluster-external-alb-https-443"
   port      = 443
   protocol  = "HTTPS"
   deregistration_delay = 300
@@ -50,10 +51,10 @@ resource "aws_alb_target_group" "ecs_cluster_nginx_https" {
   }
 
   tags {
-    Name = "ecs-cluster-external-alb-target-group-nginx-https"
+    Name = "ecs-cluster-external-alb-https-443"
   }
 }
 
-output "alb_target_group_ecs_cluster_nginx_https_id"         {value = "${aws_alb_target_group.ecs_cluster_nginx_https.id}"}
-output "alb_target_group_ecs_cluster_nginx_https_arn"        {value = "${aws_alb_target_group.ecs_cluster_nginx_https.arn}"}
-output "alb_target_group_ecs_cluster_nginx_https_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_nginx_https.arn_suffix}"}
+output "alb_ecs_cluster_external_target_group_https_443_id"         {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.id}"}
+output "alb_ecs_cluster_external_target_group_https_443_arn"        {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.arn}"}
+output "alb_ecs_cluster_external_target_group_https_443_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.arn_suffix}"}
