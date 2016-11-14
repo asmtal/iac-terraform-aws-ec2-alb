@@ -1,5 +1,5 @@
 resource "aws_alb_target_group" "ecs_cluster_external_alb_http_80" {
-  name      = "ecs-cluster-external-alb-http-80"
+  name      = "ecs-cluster-ext-alb-http-80"
   port      = 80
   protocol  = "HTTP"
   deregistration_delay = 300
@@ -11,7 +11,7 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_http_80" {
     protocol            = "HTTP"
 
     matcher             = 200
-    target              = "/index.php"
+    path                = "/index.php"
 
     timeout             = 2
     interval            = 5
@@ -20,7 +20,7 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_http_80" {
   }
 
   tags {
-    Name = "ecs-cluster-external-alb-http-80"
+    Name = "ecs-cluster-ext-alb-http-80"
   }
 }
 
@@ -28,9 +28,9 @@ output "alb_ecs_cluster_external_target_group_http_80_id"         {value = "${aw
 output "alb_ecs_cluster_external_target_group_http_80_arn"        {value = "${aws_alb_target_group.ecs_cluster_external_alb_http_80.arn}"}
 output "alb_ecs_cluster_external_target_group_http_80_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_external_alb_http_80.arn_suffix}"}
 
-
+/*
 resource "aws_alb_target_group" "ecs_cluster_external_alb_https_443" {
-  name      = "ecs-cluster-external-alb-https-443"
+  name      = "ecs-cluster-ext-alb-https-443"
   port      = 443
   protocol  = "HTTPS"
   deregistration_delay = 300
@@ -42,7 +42,7 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_https_443" {
     protocol            = "HTTPS"
 
     matcher             = 200
-    target              = "/index.php"
+    path                = "/index.php"
 
     timeout             = 2
     interval            = 5
@@ -51,10 +51,11 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_https_443" {
   }
 
   tags {
-    Name = "ecs-cluster-external-alb-https-443"
+    Name = "ecs-cluster-ext-alb-https-443"
   }
 }
 
 output "alb_ecs_cluster_external_target_group_https_443_id"         {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.id}"}
 output "alb_ecs_cluster_external_target_group_https_443_arn"        {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.arn}"}
 output "alb_ecs_cluster_external_target_group_https_443_arn_suffix" {value = "${aws_alb_target_group.ecs_cluster_external_alb_https_443.arn_suffix}"}
+*/

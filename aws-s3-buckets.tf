@@ -31,7 +31,7 @@ POLICY
 
       transition {
         days = 7
-        storage_class = GLACIER
+        storage_class = "GLACIER"
       }
 
     }
@@ -79,7 +79,7 @@ POLICY
 
       transition {
         days = 7
-        storage_class = GLACIER
+        storage_class = "GLACIER"
       }
 
     }

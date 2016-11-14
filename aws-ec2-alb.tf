@@ -1,5 +1,5 @@
 resource "aws_alb" "ecs_cluster_external" {
-  name_prefix     = "ecs-cluster-ext-"
+  name            = "ecs-cluster-external"
   internal        = false
   idle_timeout    = 60
 
@@ -9,7 +9,7 @@ resource "aws_alb" "ecs_cluster_external" {
   enable_deletion_protection = false
 
   access_logs {
-    enable  = true
+    #enable  = true
     bucket  = "${aws_s3_bucket.ecs_cluster_external_alb_logs.id}"
   }
 }
@@ -23,7 +23,7 @@ output "alb_ecs_cluster_external_canonical_hosted_zone_id"  {value = "${aws_alb.
 
 
 resource "aws_alb" "ecs_cluster_internal" {
-  name_prefix     = "ecs-cluster-int-"
+  name            = "ecs-cluster-internal"
   internal        = true
   idle_timeout    = 60
 
@@ -33,7 +33,7 @@ resource "aws_alb" "ecs_cluster_internal" {
   enable_deletion_protection = false
 
   access_logs {
-    enable  = true
+    #enable  = true
     bucket  = "${aws_s3_bucket.ecs_cluster_internal_alb_logs.id}"
   }
 }
