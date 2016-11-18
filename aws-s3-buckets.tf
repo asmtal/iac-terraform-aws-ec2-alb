@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "ecs_cluster_external_alb_logs" {
-    bucket = "alb-ecs-cluster-external-logs"
+    bucket = "${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-external-logs"
     acl = "private"
 
     policy = <<POLICY
@@ -12,10 +12,10 @@ resource "aws_s3_bucket" "ecs_cluster_external_alb_logs" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::alb-ecs-cluster-external-logs/AWSLogs/${data.aws_caller_identity.aws_account.account_id}/*",
+      "Resource": "arn:aws:s3:::${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-external-logs/AWSLogs/${data.terraform_remote_state.aws_dcs.mc_aws_account_id}/*",
       "Principal": {
         "AWS": [
-          "${data.aws_elb_service_account.aws_account.id}"
+          "${data.terraform_remote_state.aws_dcs.elb_service_account_id}"
         ]
       }
     }
@@ -37,7 +37,7 @@ POLICY
     }
 
     tags {
-      Name = "alb-ecs-cluster-external-logs"
+      Name = "${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-external-logs"
     }
 }
 
@@ -47,7 +47,7 @@ output "s3_bucket_alb_ecs_cluster_external_logs_region" {value = "${aws_s3_bucke
 
 
 resource "aws_s3_bucket" "ecs_cluster_internal_alb_logs" {
-    bucket = "alb-ecs-cluster-internal-logs"
+    bucket = "${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-internal-logs"
     acl = "private"
 
     policy = <<POLICY
@@ -60,10 +60,10 @@ resource "aws_s3_bucket" "ecs_cluster_internal_alb_logs" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::alb-ecs-cluster-internal-logs/AWSLogs/${data.aws_caller_identity.aws_account.account_id}/*",
+      "Resource": "arn:aws:s3:::${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-internal-logs/AWSLogs/${data.terraform_remote_state.aws_dcs.mc_aws_account_id}/*",
       "Principal": {
         "AWS": [
-          "${data.aws_elb_service_account.aws_account.id}"
+          "${data.terraform_remote_state.aws_dcs.elb_service_account_id}"
         ]
       }
     }
@@ -85,7 +85,7 @@ POLICY
     }
 
     tags {
-      Name = "alb-ecs-cluster-internal-logs"
+      Name = "${data.terraform_remote_state.aws_dcs.region_name}-ec2-alb-ecs-cluster-internal-logs"
     }
 }
 

@@ -11,7 +11,7 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_http_80" {
     protocol            = "HTTP"
 
     matcher             = 200
-    path                = "/index.php"
+    path                = "/"
 
     timeout             = 2
     interval            = 5
@@ -42,7 +42,7 @@ resource "aws_alb_target_group" "ecs_cluster_external_alb_https_443" {
     protocol            = "HTTPS"
 
     matcher             = 200
-    path                = "/index.php"
+    path                = "/"
 
     timeout             = 2
     interval            = 5
