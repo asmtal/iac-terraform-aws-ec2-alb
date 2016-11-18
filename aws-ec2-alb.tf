@@ -4,7 +4,7 @@ resource "aws_alb" "ecs_cluster_external" {
   idle_timeout    = 60
 
   subnets         = ["${data.terraform_remote_state.aws_vpc.ecs_cluster_vpc_subnet_public_id}"]
-  security_groups = ["${aws_security_group.ecs_cluster_external_alb.id}"]
+  security_groups = ["${data.terraform_remote_state.aws_vpc.security_group_ec2_alb_external_ecs_cluster_id}"]
 
   enable_deletion_protection = false
 
@@ -28,7 +28,7 @@ resource "aws_alb" "ecs_cluster_internal" {
   idle_timeout    = 60
 
   subnets         = ["${data.terraform_remote_state.aws_vpc.ecs_cluster_vpc_subnet_private_id}"]
-  security_groups = ["${aws_security_group.ecs_cluster_internal_alb.id}"]
+  security_groups = ["${data.terraform_remote_state.aws_vpc.security_group_ec2_alb_internal_ecs_cluster_id}"]
 
   enable_deletion_protection = false
 
